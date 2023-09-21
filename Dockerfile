@@ -31,6 +31,9 @@ COPY ./mysql-init.sql /docker-entrypoint-initdb.d/
 # PHP資源をコピー
 COPY ./source /var/www/html
 
+# ディレクトリ権限変更
+RUN chown -R apache:apache /var/www/html
+
 #PHP 8.1
 # https://www.tsuda1.com/blog/2020/09/08/php%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/
 RUN dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
