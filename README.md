@@ -1,10 +1,10 @@
 # Groupware環境構築手順
 ## 0.gitコマンドを用いて各ファイルをダウンロード
-source
+source：PHPのソースコード
 
-Dockerfile
+Dockerfile：Docker環境設定ファイル
 
-mysql-init.sql
+mysql-init.sql：データーベース作成＆テーブル作成ファイル
 
 ## 1.構築の実行
 下記のコマンドを実行して自動構築！
