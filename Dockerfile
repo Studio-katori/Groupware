@@ -31,6 +31,8 @@ COPY ./mysql-init.sql /docker-entrypoint-initdb.d/
 # PHP資源をコピー
 COPY ./source /var/www/html
 
+RUN dnf -y install composer unzip git
+
 # ディレクトリ権限変更
 RUN chown -R apache:apache /var/www/html
 
