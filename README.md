@@ -1,4 +1,10 @@
 # Groupware環境構築手順
+## 0.gitコマンドを用いて各ファイルをダウンロード
+source
+
+Dockerfile
+
+mysql-init.sql
 
 ## 1.構築の実行
 下記のコマンドを実行して自動構築！
