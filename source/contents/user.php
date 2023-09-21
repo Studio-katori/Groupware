@@ -1,162 +1,120 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 require_once '../config/config.php';
 
 // ログインしていない場合はログインページにリダイレクト
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
+    header("Location: ../config/login.php");
     exit;
 }
 
-// 初期化
-$message = '';
+// フォームが送信された場合の処理（パスワード変更）
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
+    $current_password = $_POST['current_password'];
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
 
-// アクセス権限チェック
-if ($_SESSION['user_role'] !== 'admin') {
-    // 管理者以外はアクセス不可
-    header("Location: ../contents/access_denied.php"); // アクセス拒否ページへリダイレクト
-    exit;
-}
+    // 現在のパスワードをデータベースから取得し、入力されたパスワードと照合する
+    $query = "SELECT password FROM users WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "i", $_SESSION['user_id']);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $hashed_password);
+    mysqli_stmt_fetch($stmt);
+    mysqli_stmt_close($stmt);
 
-// フォームからのPOSTリクエストを処理
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['username']) && isset($_POST['fullname']) && isset($_POST['password']) && isset($_POST['user_role'])) {
-        $username = $_POST['username'];
-        $fullname = $_POST['fullname'];
-        $password = $_POST['password'];
-        $user_role = $_POST['user_role'];
+    // パスワードの照合と新しいパスワードの確認
+    if ($current_password === $hashed_password && $new_password === $confirm_password) {
+        // 新しいパスワードをデータベースに保存
+        $query = "UPDATE users SET password = ? WHERE id = ?";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "si", $new_password, $_SESSION['user_id']);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
 
-        // ユーザー名の重複チェック
-        $query_check_username = "SELECT id FROM users WHERE username = ?";
-        $stmt_check_username = mysqli_prepare($conn, $query_check_username);
-        mysqli_stmt_bind_param($stmt_check_username, "s", $username);
-        mysqli_stmt_execute($stmt_check_username);
-        mysqli_stmt_store_result($stmt_check_username);
-
-        if (mysqli_stmt_num_rows($stmt_check_username) > 0) {
-            $message = "このユーザー名は既に登録されています。別のユーザー名を選択してください。";
-        } else {
-            // ユーザー名の重複がない場合のみデータベースに登録
-            $query = "INSERT INTO users (username, fullname, password, user_role) VALUES (?, ?, ?, ?)";
-            $stmt = mysqli_prepare($conn, $query);
-            mysqli_stmt_bind_param($stmt, "ssss", $username, $fullname, $password, $user_role);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-
-            $message = "ユーザーが登録されました。";
-        }
-
+        // パスワード変更成功のメッセージを表示してダッシュボードにリダイレクト
+        echo "パスワードが変更されました。";
+        header("Location: ../contents/dashboard.php");
+        exit;
+    } else {
+        // パスワード変更失敗のエラーメッセージ
+        $password_error_message = "現在のパスワードが間違っているか、新しいパスワードが一致しません。";
     }
 }
-// ユーザ一覧を取得
-$usersList = [];
-$query = "SELECT id, username, fullname, password, user_role FROM users";
-$result = mysqli_query($conn, $query);
-if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $usersList[] = $row;
-    }
-    mysqli_free_result($result);
-} else {
-    $message = "エラー：ドメイン一覧の取得に失敗しました。";
+
+// フォームが送信された場合の処理（自己紹介文変更）
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_bio'])) {
+    $bio = $_POST['bio'];
+
+    // 自己紹介文をデータベースに保存
+    $query = "UPDATE users SET bio = ? WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "si", $bio, $_SESSION['user_id']);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    // 自己紹介文変更成功のメッセージを表示
+    echo "自己紹介文が変更されました。";
 }
-// ユーザー削除の処理
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['delete_user_id'])) {
-        $delete_user_id = $_POST['delete_user_id'];
 
-        // ユーザー削除
-        $query_delete_user = "DELETE FROM users WHERE id = ?";
-        $stmt_delete_user = mysqli_prepare($conn, $query_delete_user);
-        mysqli_stmt_bind_param($stmt_delete_user, "i", $delete_user_id);
-        mysqli_stmt_execute($stmt_delete_user);
-        mysqli_stmt_close($stmt_delete_user);
-
-        // ユーザー一覧を再取得
-        $usersList = [];
-        $query = "SELECT id, username, fullname, password, user_role FROM users";
-        $result = mysqli_query($conn, $query);
-        if ($result) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $usersList[] = $row;
-            }
-            mysqli_free_result($result);
-        } else {
-            $message = "エラー：ユーザー一覧の取得に失敗しました。";
-        }
-    }
+// フォームが送信された場合の処理（アイコン変更）
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_icon'])) {
+    // アイコンのアップロード処理
+    // ...
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="ja">
 <head>
     <?php include '../theme/head.php'; ?>
-    <title>ユーザー登録</title>
+    <title>プロフィール編集</title>
 </head>
 <body>
-<!-- ヘッダーをインクルード -->
-<?php include '../theme/header.php'; ?>
-<main>
-    <div class="wrapper">
-        <div class="container">
-            <div class="wrapper-title">
-                <h3>ユーザー登録</h3>
-            </div>
-            <div class="contact-form">
-                <p style="color: red;"><?php echo $message; ?></p>
-	            <form method="post" action="" id="userForm">
-		            <table>
-			            <tr><th>ロール</th>
-                            <td>
-                                <input type="radio" id="user_role_user" name="user_role" value="user" required>
-                                <label for="user_role_user">User</label>
-                                <input type="radio" id="user_role_admin" name="user_role" value="admin" required>
-                                <label for="user_role_admin">Admin</label>
-                            </td>
-                        </tr>
-                        <tr><th>ユーザーID</th><td><input type="text" id="username" name="username" required></td></tr>
-                        <tr><th>ユーザー名</th><td><input type="text" id="fullname" name="fullname" required></td></tr>
-                        <tr><th>パスワード</th><td><input type="password" id="password" name="password" required></td></tr>
-                    </table>
-		            <input class="submit-btn" type="submit" value="登録">
-	            </form>
-            </div>
-            <div class="wrapper-title">
-                <h3>ユーザ一覧</h3>
-            </div>
-            <div class="scroll">
-                <table class="design01">
-                    <tr>
-                        <th>ID</th>
-                        <th>ユーザID</th>
-                        <th>ユーザ名</th>
-                        <th>ロール</th>
-                        <th>操作</th>
-                    </tr>
-                    <?php foreach ($usersList as $users) : ?>
-                        <tr>
-                            <td><?php echo $users['id']; ?></td>
-                            <td><?php echo $users['username']; ?></td>
-                            <td><?php echo $users['fullname']; ?></td>
-                            <td><?php echo $users['user_role']; ?></td>
-                            <td>
-                                <!-- ユーザー削除フォーム -->
-                                <form method="post">
-                                    <input type="hidden" name="delete_user_id" value="<?php echo $users['id']; ?>">
-                                    <button type="submit" onclick="return confirm('ユーザ <?php echo $users['username']; ?> を削除してもよろしいですか？')">削除</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </table>
+    <!-- ヘッダーをインクルード -->
+    <?php include '../theme/header.php'; ?>
+
+    <main>
+        <div class="wrapper">
+            <div class="container">
+                <div class="wrapper-title">
+                    <h3>プロフィール編集</h3>
+                </div>
+                <!-- パスワード変更フォーム -->
+                <div class="contact-form">
+                    <h4>パスワード変更</h4>
+                    <form method="post" action="" id="passwordForm">
+                        <!-- パスワード変更フォームの内容 -->
+                        <table>
+                            <tr><th>現在のパスワード</th><td><input type="password" id="current_password" name="current_password" required></td></tr>
+                            <tr><th>新しいパスワード</th><td><input type="password" id="new_password" name="new_password" required></td></tr>
+                            <tr><th>確認用パスワード</th><td><input type="password" id="confirm_password" name="confirm_password" required></td></tr>
+                        </table>
+                         <input type="submit" name="change_password" value="パスワード変更">
+                    </form>
+                </div>
+                <!-- 自己紹介文変更フォーム -->
+                <div class="contact-form">
+                    <h4>自己紹介文変更</h4>
+                    <form method="post" action="" id="bioForm">
+                        <textarea name="bio" rows="4" cols="50"><?php echo $user['bio']; ?></textarea>
+                        <input type="submit" name="change_bio" value="自己紹介文変更">
+                    </form>
+                </div>
+                <!-- アイコン変更フォーム -->
+                <div class="contact-form">
+                    <h4>アイコン変更</h4>
+                    <form method="post" action="upload.php" id="iconForm" enctype="multipart/form-data">
+                        <!-- アイコン変更フォームの内容 -->
+                        <input type="file" name="icon" id="icon">
+                        <input type="submit" name="change_icon" value="アイコン変更">
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</main>
-<footer>
-<!-- フッターをインクルード -->
-<?php include '../theme/footer.php'; ?>
-</footer>
+    </main>
+
+    <!-- フッターをインクルード -->
+    <?php include '../theme/footer.php'; ?>
 </body>
 </html>

@@ -76,7 +76,7 @@ $total_pages = ceil($total_tweets / $items_per_page);
                     <i class="fa-brands fa-expeditedssl icon"></i>
                     <p>SSL</p>
                 </a>
-                <a href="changepassword.php" class="box">
+                <a href="user.php" class="box">
                     <i class="fa-solid fa-user icon"></i>
                     <p>パスワード</p>
                 </a>
@@ -87,7 +87,7 @@ $total_pages = ceil($total_tweets / $items_per_page);
                 <?php
                     if ($user_role === 'admin') {
                         // adminユーザーの場合のみユーザーページへのリンクを表示
-                        echo '<a href="user.php" class="box">';
+                        echo '<a href="usersettings.php" class="box">';
                         echo '<i class="fa-solid fa-users-gear icon"></i>';
                         echo '<p>ユーザー</p>';
                         echo '</a>';
