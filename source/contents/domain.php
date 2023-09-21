@@ -100,17 +100,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteDomain'])) {
         $configFile = "/etc/httpd/conf.d/virtualhost-99-$serverName.conf";
         $sslConfigFile = "/etc/httpd/conf.d/virtualhost-99-{$serverName}_ssl.conf";
         $sslDir = "/etc/letsencrypt/live/$serverName";
-        
+
         if (file_exists($configFile)) {
             unlink($configFile);
         }
-        
+
         if (file_exists($sslConfigFile)) {
             unlink($sslConfigFile);
             // Apacheを再読込して設定を反映
             exec('sudo apachectl graceful', $output, $return_var);
         }
-        
+
         if (file_exists($sslDir)) {
             exec("sudo certbot delete --cert-name $serverName --non-interactive");
         }
@@ -144,60 +144,77 @@ if ($result) {
     $message = "エラー：ドメイン一覧の取得に失敗しました。";
 }
 ?>
+
 <head>
     <?php include '../theme/head.php'; ?>
     <title>ドメイン設定</title>
 </head>
 
 <body>
-<!-- ヘッダーをインクルード -->
-<?php include '../theme/header.php'; ?>
-<main>
-    <div class="wrapper">
-        <div class="container">
-            <div class="wrapper-title">
-                <h3>ドメイン設定</h3>
-            </div>
-            <p style="color: red;"><?php echo $message; ?></p>
-            <div class="contact-form">
-	            <form method="post">
-		            <table>
-			            <tr><th>ドメイン</th><td><input type="text" name="serverName" required></td></tr>
-                        <tr><th>ドキュメントルート</th><td><input type="text" name="documentRoot" required></td></tr>
-		            </table>
-		            <input class="submit-btn" type="submit" value="設定を保存">
-	            </form>
-            </div>
-            <div class="wrapper-title">
-                <h3>ドメイン一覧</h3>
-            </div>
-            <div class="scroll">
-            <table class="design01">
-                <tr>
-                    <th>ID</th>
-                    <th>ドメイン</th>
-                    <th>ドキュメントルート</th>
-                    <th>操作</th>
-                </tr>
-                    <?php foreach ($domainList as $domain) : ?>
-                     <tr>
-                        <td><?php echo $domain['id']; ?></td>
-                        <td><?php echo $domain['serverName']; ?></td>
-                        <td><?php echo $domain['documentRoot']; ?></td>
-                        <td>
-                            <form method="post">
-                            <input type="hidden" name="deleteDomain" value="<?php echo $domain['id']; ?>">
-                            <button type="submit" onclick="return confirm('ドメイン <?php echo $domain['serverName']; ?> を削除してもよろしいですか？')">削除</button>
-                            </form>
-                        </td>
+    <!-- ヘッダーをインクルード -->
+    <?php include '../theme/header.php'; ?>
+    <main>
+        <div class="wrapper">
+            <div class="container">
+                <div class="wrapper-title">
+                    <h3>ドメイン設定</h3>
+                </div>
+                <p style="color: red;">
+                    <?php echo $message; ?>
+                </p>
+                <div class="contact-form">
+                    <form method="post">
+                        <table>
+                            <tr>
+                                <th>ドメイン</th>
+                                <td><input type="text" name="serverName" required></td>
+                            </tr>
+                            <tr>
+                                <th>ドキュメントルート</th>
+                                <td><input type="text" name="documentRoot" required></td>
+                            </tr>
+                        </table>
+                        <input class="submit-btn" type="submit" value="設定を保存">
+                    </form>
+                </div>
+                <div class="wrapper-title">
+                    <h3>ドメイン一覧</h3>
+                </div>
+                <div class="scroll">
+                    <table class="design01">
+                        <tr>
+                            <th>ID</th>
+                            <th>ドメイン</th>
+                            <th>ドキュメントルート</th>
+                            <th>操作</th>
                         </tr>
-                    <?php endforeach; ?>
-            </table>
+                        <?php foreach ($domainList as $domain): ?>
+                            <tr>
+                                <td>
+                                    <?php echo $domain['id']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $domain['serverName']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $domain['documentRoot']; ?>
+                                </td>
+                                <td>
+                                    <form method="post">
+                                        <input type="hidden" name="deleteDomain" value="<?php echo $domain['id']; ?>">
+                                        <button type="submit"
+                                            onclick="return confirm('ドメイン <?php echo $domain['serverName']; ?> を削除してもよろしいですか？')">削除</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-</main>
-<!-- フッターをインクルード -->
-<?php include '../theme/footer.php'; ?>
+    </main>
+    <!-- フッターをインクルード -->
+    <?php include '../theme/footer.php'; ?>
 </body>
+
 </html>

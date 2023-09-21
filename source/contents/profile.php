@@ -66,10 +66,12 @@ if (!$user_id) {
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <?php include '../theme/head.php'; ?>
     <title>ユーザープロフィール</title>
 </head>
+
 <body>
     <!-- ヘッダーをインクルード -->
     <?php include '../theme/header.php'; ?>
@@ -78,13 +80,14 @@ if (!$user_id) {
             <div class="wrapper-title">
                 <h3></h3>
             </div>
-    <?php echo $user_icon_html; ?>
-    <?php echo $profile_html; ?>
-    </div>
+            <?php echo $user_icon_html; ?>
+            <?php echo $profile_html; ?>
         </div>
     </div>
-</main>
+    </div>
+    </main>
     <!-- フッターをインクルード -->
     <?php include '../theme/footer.php'; ?>
 </body>
+
 </html>

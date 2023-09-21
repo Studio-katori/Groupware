@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['serverName'])) {
     
     # Other SSL settings (if needed)
 </VirtualHost>";
-    
+
         file_put_contents($sslConfigPath, $sslConfigContents);
 
         $message = "SSL設定が完了しました。Apacheが再読込されました。";
@@ -75,54 +75,70 @@ if ($result) {
     $message = "エラー：ドメイン一覧の取得に失敗しました。";
 }
 ?>
+
 <head>
     <?php include '../theme/head.php'; ?>
     <title>ドメインSSL設定</title>
 </head>
+
 <body>
-<!-- ヘッダーをインクルード -->
-<?php include '../theme/header.php'; ?>
-<main>
-    <div class="wrapper">
-        <div class="container">
-            <div class="wrapper-title">
-                <h3>ドメインSSL設定</h3>
-            </div>
-            <div class="contact-form">
-                <p style="color: red;"><?php echo $message; ?></p>
-                <p>DNS登録をしてから実行してください</p>
-	            <form method="post" action="" id="userForm">
-		            <table>
-			            <tr><th>ドメイン</th><td><input type="text" name="serverName" required></td></tr>
-		            </table>
-		            <input class="submit-btn" type="submit" value="設定を保存">
-	            </form>
-            </div>
-            <div class="wrapper-title">
-                <h3>ドメイン一覧</h3>
-            </div>
-            <div class="scroll">
-            <table class="design01">
-                <tr>
-                    <th>ID</th>
-                    <th>ドメイン</th>
-                    <th>ドキュメントルート</th>
-                    <th>SSL</th>
-                </tr>
-                    <?php foreach ($domainList as $domain) : ?>
-                     <tr>
-                        <td><?php echo $domain['id']; ?></td>
-                        <td><?php echo $domain['serverName']; ?></td>
-                        <td><?php echo $domain['documentRoot']; ?></td>
-                        <td><?php echo $domain['sslEnabled'] ? '有効' : '無効'; ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-            </table>
+    <!-- ヘッダーをインクルード -->
+    <?php include '../theme/header.php'; ?>
+    <main>
+        <div class="wrapper">
+            <div class="container">
+                <div class="wrapper-title">
+                    <h3>ドメインSSL設定</h3>
+                </div>
+                <div class="contact-form">
+                    <p style="color: red;">
+                        <?php echo $message; ?>
+                    </p>
+                    <p>DNS登録をしてから実行してください</p>
+                    <form method="post" action="" id="userForm">
+                        <table>
+                            <tr>
+                                <th>ドメイン</th>
+                                <td><input type="text" name="serverName" required></td>
+                            </tr>
+                        </table>
+                        <input class="submit-btn" type="submit" value="設定を保存">
+                    </form>
+                </div>
+                <div class="wrapper-title">
+                    <h3>ドメイン一覧</h3>
+                </div>
+                <div class="scroll">
+                    <table class="design01">
+                        <tr>
+                            <th>ID</th>
+                            <th>ドメイン</th>
+                            <th>ドキュメントルート</th>
+                            <th>SSL</th>
+                        </tr>
+                        <?php foreach ($domainList as $domain): ?>
+                            <tr>
+                                <td>
+                                    <?php echo $domain['id']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $domain['serverName']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $domain['documentRoot']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $domain['sslEnabled'] ? '有効' : '無効'; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-</main>
-<!-- フッターをインクルード -->
-<?php include '../theme/footer.php'; ?>
+    </main>
+    <!-- フッターをインクルード -->
+    <?php include '../theme/footer.php'; ?>
 </body>
+
 </html>

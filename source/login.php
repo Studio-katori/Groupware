@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <head>
-<link rel="stylesheet" href="./theme/styles.css">
+    <link rel="stylesheet" href="./theme/styles.css">
     <title>管理画面ログイン</title>
 </head>
 
@@ -50,9 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="login-wrapper-title">
                     <h3>ログイン</h3>
                 </div>
-                    <form class="login-form" method="post" action="">
-                    <?php if (isset($error_message)) : ?>
-                        <p style="color: red;"><?php echo $error_message; ?></p>
+                <form class="login-form" method="post" action="">
+                    <?php if (isset($error_message)): ?>
+                        <p style="color: red;">
+                            <?php echo $error_message; ?>
+                        </p>
                     <?php endif; ?>
                     <div class="form-group">
                         <p>ユーザー名</p>
@@ -62,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <p>パスワード</p>
                         <input type="password" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-submit" >ログイン</button>
+                    <button type="submit" class="btn btn-submit">ログイン</button>
                 </form>
             </div>
         </div>

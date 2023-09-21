@@ -63,13 +63,13 @@ if (isset($_POST['reply'])) {
     // リプライをデータベースに保存するクエリを実行
     $query = "INSERT INTO tweets (user_id, content, parent_tweet_id, created_at) VALUES (?, ?, ?, NOW())";
     $stmt = mysqli_prepare($conn, $query);
-    
+
     if ($stmt === false) {
         die("Error: " . mysqli_error($conn)); // エラーメッセージを表示
     }
-    
+
     mysqli_stmt_bind_param($stmt, "isi", $user_id, $reply_content, $parent_tweet_id);
-    
+
     if (mysqli_stmt_execute($stmt)) {
         mysqli_stmt_close($stmt);
 
@@ -85,88 +85,102 @@ if (isset($_POST['reply'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <?php include '../theme/head.php'; ?>
     <title>投稿システム</title>
     <!-- ここにCSSファイルをリンク -->
 </head>
+
 <body>
-<!-- ヘッダーをインクルード -->
-<?php include '../theme/header.php'; ?>
+    <!-- ヘッダーをインクルード -->
+    <?php include '../theme/header.php'; ?>
 
-<main>
-    <div class="wrapper">
-        <div class="container">
-            <div class="wrapper-title">
-                <h3>Tweet</h3>
-            </div>
-            <!-- ユーザアイコンを表示 -->
-            <div class="user-icon">
-            <table>
-                <tr><th><img src="<?php echo "user_icons/{$user_icon}"; ?>" alt="User Icon" width="30" height="30"></th><td><?php echo $fullname; ?></td></tr>
-            </table>
-            </div>
-            <!-- ツイート投稿フォーム -->
-            <form method="post" action="">
-                <textarea name="tweet_content" rows="4" cols="40" placeholder="今何をしていますか？"></textarea>
-                <br>
-                <input type="submit" value="ツイート">
-            </form>
+    <main>
+        <div class="wrapper">
+            <div class="container">
+                <div class="wrapper-title">
+                    <h3>Tweet</h3>
+                </div>
+                <!-- ユーザアイコンを表示 -->
+                <div class="user-icon">
+                    <table>
+                        <tr>
+                            <th><img src="<?php echo "user_icons/{$user_icon}"; ?>" alt="User Icon" width="30"
+                                    height="30"></th>
+                            <td>
+                                <?php echo $fullname; ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- ツイート投稿フォーム -->
+                <form method="post" action="">
+                    <textarea name="tweet_content" rows="4" cols="40" placeholder="今何をしていますか？"></textarea>
+                    <br>
+                    <input type="submit" value="ツイート">
+                </form>
 
-            <!-- ツイート一覧 -->
-            <div class="tweet-list">
-                <?php foreach ($tweets as $tweet) : ?>
-                    <div class="tweet">
-                        <table>
-                            <tr>
-                                <th><img src="<?php echo "user_icons/{$tweet['user_icon']}"; ?>" alt="User Icon" width="30" height="30"></th>
-                                <td>
-                                    <p class="tweet-info">
-                                        <?php echo $tweet['fullname']; ?> - <?php echo $tweet['created_at']; ?>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <td>
-                                    <p><?php echo $tweet['content']; ?></p>
+                <!-- ツイート一覧 -->
+                <div class="tweet-list">
+                    <?php foreach ($tweets as $tweet): ?>
+                        <div class="tweet">
+                            <table>
+                                <tr>
+                                    <th><img src="<?php echo "user_icons/{$tweet['user_icon']}"; ?>" alt="User Icon"
+                                            width="30" height="30"></th>
+                                    <td>
+                                        <p class="tweet-info">
+                                            <?php echo $tweet['fullname']; ?> -
+                                            <?php echo $tweet['created_at']; ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td>
+                                        <p>
+                                            <?php echo $tweet['content']; ?>
+                                        </p>
 
-                                    <!-- リプライフォーム -->
-                                    <form method="post" action="">
-                                        <input type="hidden" name="parent_tweet_id" value="<?php echo $tweet['id']; ?>">
-                                        <textarea name="reply_content" rows="2" cols="40" placeholder="返信を入力"></textarea>
-                                        <br>
-                                        <input type="submit" name="reply" value="返信">
-                                    </form>
-                                </td>
-                            </tr>
+                                        <!-- リプライフォーム -->
+                                        <form method="post" action="">
+                                            <input type="hidden" name="parent_tweet_id" value="<?php echo $tweet['id']; ?>">
+                                            <textarea name="reply_content" rows="2" cols="40"
+                                                placeholder="返信を入力"></textarea>
+                                            <br>
+                                            <input type="submit" name="reply" value="返信">
+                                        </form>
+                                    </td>
+                                </tr>
 
-                            <!-- リプライ一覧 -->
-                            <?php
-                            foreach ($tweets as $reply) {
-                                if ($reply['parent_tweet_id'] == $tweet['id']) {
-                                    echo '<tr>';
-                                    echo '<th></th>';
-                                    echo '<td>';
-                                    echo '<p>';
-                                    echo '<img src="' . "user_icons/{$reply['user_icon']}" . '" alt="User Icon" width="25" height="25">';
-                                    echo $reply['fullname'] . ' - ' . $reply['created_at'] . '<br>';
-                                    echo $reply['content'];
-                                    echo '</p>';
-                                    echo '</td>';
-                                    echo '</tr>';
+                                <!-- リプライ一覧 -->
+                                <?php
+                                foreach ($tweets as $reply) {
+                                    if ($reply['parent_tweet_id'] == $tweet['id']) {
+                                        echo '<tr>';
+                                        echo '<th></th>';
+                                        echo '<td>';
+                                        echo '<p>';
+                                        echo '<img src="' . "user_icons/{$reply['user_icon']}" . '" alt="User Icon" width="25" height="25">';
+                                        echo $reply['fullname'] . ' - ' . $reply['created_at'] . '<br>';
+                                        echo $reply['content'];
+                                        echo '</p>';
+                                        echo '</td>';
+                                        echo '</tr>';
+                                    }
                                 }
-                            }
-                            ?>
-                        </table>
-                    </div>
-                <?php endforeach; ?>
+                                ?>
+                            </table>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 
-<!-- フッターをインクルード -->
-<?php include '../theme/footer.php'; ?>
+    <!-- フッターをインクルード -->
+    <?php include '../theme/footer.php'; ?>
 </body>
+
 </html>

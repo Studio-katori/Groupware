@@ -5,6 +5,6 @@
         </div>
         <nav class="menu-right menu">
             <a href="../logout.php">ログアウト</a>
-         </nav>
+        </nav>
     </div>
 </header>

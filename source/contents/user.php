@@ -66,10 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_icon'])) {
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <?php include '../theme/head.php'; ?>
     <title>プロフィール編集</title>
 </head>
+
 <body>
     <!-- ヘッダーをインクルード -->
     <?php include '../theme/header.php'; ?>
@@ -86,11 +88,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_icon'])) {
                     <form method="post" action="" id="passwordForm">
                         <!-- パスワード変更フォームの内容 -->
                         <table>
-                            <tr><th>現在のパスワード</th><td><input type="password" id="current_password" name="current_password" required></td></tr>
-                            <tr><th>新しいパスワード</th><td><input type="password" id="new_password" name="new_password" required></td></tr>
-                            <tr><th>確認用パスワード</th><td><input type="password" id="confirm_password" name="confirm_password" required></td></tr>
+                            <tr>
+                                <th>現在のパスワード</th>
+                                <td><input type="password" id="current_password" name="current_password" required></td>
+                            </tr>
+                            <tr>
+                                <th>新しいパスワード</th>
+                                <td><input type="password" id="new_password" name="new_password" required></td>
+                            </tr>
+                            <tr>
+                                <th>確認用パスワード</th>
+                                <td><input type="password" id="confirm_password" name="confirm_password" required></td>
+                            </tr>
                         </table>
-                         <input type="submit" name="change_password" value="パスワード変更">
+                        <input type="submit" name="change_password" value="パスワード変更">
                     </form>
                 </div>
                 <!-- 自己紹介文変更フォーム -->
@@ -117,4 +128,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_icon'])) {
     <!-- フッターをインクルード -->
     <?php include '../theme/footer.php'; ?>
 </body>
+
 </html>

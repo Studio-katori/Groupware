@@ -23,7 +23,7 @@ mysqli_stmt_close($stmt);
 
 // ページネーションの設定
 $items_per_page = 10;
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($page - 1) * $items_per_page;
 
 // ツイートをデータベースから取得
@@ -53,38 +53,42 @@ $total_pages = ceil($total_tweets / $items_per_page);
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <?php include '../theme/head.php'; ?>
     <title>ダッシュボード</title>
 </head>
+
 <body>
-<!-- ヘッダーをインクルード -->
-<?php include '../theme/header.php'; ?>
-<main>
-    <div class="wrapper">
-        <div class="container">
-            <h2>ようこそ、 <?php echo $fullname; ?> さん！</h2>
-            <div class="wrapper-title">
-                <h3>ダッシュボード</h3>
-            </div>
-            <div class="boxs">
-                <a href="domain.php" class="box">
-                    <i class="fa-solid fa-globe icon"></i>
-                    <p>ドメイン</p>
-                </a>
-                <a href="ssl.php" class="box">
-                    <i class="fa-brands fa-expeditedssl icon"></i>
-                    <p>SSL</p>
-                </a>
-                <a href="user.php" class="box">
-                    <i class="fa-solid fa-user icon"></i>
-                    <p>パスワード</p>
-                </a>
-                <a href="tweet.php" class="box">
-                    <i class="fa-brands fa-twitter icon"></i>
-                    <p>Tweet</p>
-                </a>
-                <?php
+    <!-- ヘッダーをインクルード -->
+    <?php include '../theme/header.php'; ?>
+    <main>
+        <div class="wrapper">
+            <div class="container">
+                <h2>ようこそ、
+                    <?php echo $fullname; ?> さん！
+                </h2>
+                <div class="wrapper-title">
+                    <h3>ダッシュボード</h3>
+                </div>
+                <div class="boxs">
+                    <a href="domain.php" class="box">
+                        <i class="fa-solid fa-globe icon"></i>
+                        <p>ドメイン</p>
+                    </a>
+                    <a href="ssl.php" class="box">
+                        <i class="fa-brands fa-expeditedssl icon"></i>
+                        <p>SSL</p>
+                    </a>
+                    <a href="user.php" class="box">
+                        <i class="fa-solid fa-user icon"></i>
+                        <p>パスワード</p>
+                    </a>
+                    <a href="tweet.php" class="box">
+                        <i class="fa-brands fa-twitter icon"></i>
+                        <p>Tweet</p>
+                    </a>
+                    <?php
                     if ($user_role === 'admin') {
                         // adminユーザーの場合のみユーザーページへのリンクを表示
                         echo '<a href="usersettings.php" class="box">';
@@ -92,45 +96,53 @@ $total_pages = ceil($total_tweets / $items_per_page);
                         echo '<p>ユーザー</p>';
                         echo '</a>';
                     }
-                ?>
+                    ?>
+                </div>
+                <div class="wrapper-title">
+                    <h3>ツイート一覧</h3>
+                </div>
+                <!-- ツイート一覧 -->
+                <div class="tweet-list">
+                    <?php foreach ($tweets as $tweet): ?>
+                        <div class="tweet">
+                            <table>
+                                <tr>
+                                    <!-- プロフィールへのリンクを追加 -->
+                                    <th><a href="profile.php?user_id=<?php echo $tweet['user_id']; ?>"><img
+                                                src="<?php echo "user_icons/{$tweet['user_icon']}"; ?>" alt="User Icon"
+                                                width="30" height="30"></a></th>
+                                    <td>
+                                        <p class="tweet-info">
+                                            <?php echo $tweet['fullname']; ?> -
+                                            <?php echo $tweet['created_at']; ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td>
+                                        <p>
+                                            <?php echo $tweet['content']; ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <!-- ページネーション -->
+                <div class="pagination">
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                        <a href="?page=<?php echo $i; ?>">
+                            <?php echo $i; ?>
+                        </a>
+                    <?php endfor; ?>
+                </div>
             </div>
-            <div class="wrapper-title">
-                <h3>ツイート一覧</h3>
-            </div>
-<!-- ツイート一覧 -->
-<div class="tweet-list">
-    <?php foreach ($tweets as $tweet) : ?>
-        <div class="tweet">
-            <table>
-                <tr>
-                    <!-- プロフィールへのリンクを追加 -->
-                    <th><a href="profile.php?user_id=<?php echo $tweet['user_id']; ?>"><img src="<?php echo "user_icons/{$tweet['user_icon']}"; ?>" alt="User Icon" width="30" height="30"></a></th>
-                    <td>
-                        <p class="tweet-info">
-                            <?php echo $tweet['fullname']; ?> - <?php echo $tweet['created_at']; ?>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td>
-                        <p><?php echo $tweet['content']; ?></p>
-                    </td>
-                </tr>
-            </table>
         </div>
-    <?php endforeach; ?>                    
-</div>
-            <!-- ページネーション -->
-            <div class="pagination">
-                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                    <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                <?php endfor; ?>
-            </div>
-        </div>
-    </div>
-</main>
-<!-- フッターをインクルード -->
-<?php include '../theme/footer.php'; ?>
+    </main>
+    <!-- フッターをインクルード -->
+    <?php include '../theme/footer.php'; ?>
 </body>
+
 </html>
