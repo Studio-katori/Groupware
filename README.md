@@ -2,7 +2,7 @@
 ## 0.gitコマンドを用いて各ファイルをダウンロード
 source：PHPのソースコード
 
-Dockerfile：Docker環境設定ファイル
+Dockerfile：Docker環境構築設定ファイル
 
 mysql-init.sql：データーベース作成＆テーブル作成ファイル
 
