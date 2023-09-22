@@ -28,16 +28,28 @@ RUN systemctl enable mariadb
 # データベースとテーブルを作成するSQLスクリプトをコピーします
 COPY ./mysql-init.sql /docker-entrypoint-initdb.d/
 
-# PHP資源をコピー
-COPY ./source /var/www/html
+#PHP 8.1
+RUN dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+RUN dnf -y module install php:remi-8.1
+RUN dnf -y install php php-cli php-fpm php-devel php-pear php-curl php-mysqlnd php-gd php-opcache php-zip php-intl php-common php-bcmath php-imagick php-xmlrpc php-json php-readline php-memcached php-redis php-mbstring php-apcu php-xml php-dom php-redis php-memcached php-memcache php-process
 
-RUN dnf -y install composer unzip git
+# Composerをインストール
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# その他インストール
+RUN dnf -y install unzip git
+
+# Composerのグローバルインストールパスを設定
+ENV PATH="/root/.composer/vendor/bin:${PATH}"
+
+# Laravelプロジェクトをインストール
+RUN composer create-project --prefer-dist laravel/laravel /var/www/html
+
+# アプリケーションの設定を有効にする
+RUN cp /var/www/html/.env.example /var/www/html/.env
+RUN php /var/www/html/artisan key:generate
+
 
 # ディレクトリ権限変更
 RUN chown -R apache:apache /var/www/html
 
-#PHP 8.1
-# https://www.tsuda1.com/blog/2020/09/08/php%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/
-RUN dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
-RUN dnf -y module install php:remi-8.1
-RUN dnf -y install php php-cli php-fpm php-devel php-pear php-curl php-mysqlnd php-gd php-opcache php-zip php-intl php-common php-bcmath php-imagick php-xmlrpc php-json php-readline php-memcached php-redis php-mbstring php-apcu php-xml php-dom php-redis php-memcached php-memcache php-process
