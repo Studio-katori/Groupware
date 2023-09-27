@@ -43,6 +43,10 @@ html {
         color: #3e3e3b;
     }
 
+    .wrapper-title h4{
+        background: linear-gradient(transparent 70%, #a7d6ff 70%);
+    }
+
     .wrapper-title p {
         font-size: 13px;
         color: #a2aab0;
