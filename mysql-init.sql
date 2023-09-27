@@ -16,7 +16,7 @@ CREATE TABLE users (
 );
 
 -- ユーザーを作成
-INSERT INTO users (username, password, user_role, fullname, bio, user_icon) VALUES ('shun', 'Password123', 'admin', 'katori shun', 'NULL', 'default.png');
+INSERT INTO users (username, password, user_role, fullname, bio, user_icon) VALUES ('shun', 'Password123', 'admin', 'katori shun', 'テストメッセージ', 'default.png');
 
 -- ドメイン情報テーブル作成
 CREATE TABLE domains (
