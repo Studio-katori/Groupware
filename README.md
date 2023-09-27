@@ -18,8 +18,13 @@ mysql-init.sql：データーベース作成＆テーブル作成ファイル
 > docker run --privileged -d -p 22:22 -p 80:80 -p 8080:8080 -p 443:443 --name webapp_alma webapp:Groupware /sbin/init
 
 
-## 3.TeraTarmでログイン
+## 3.TeraTarmでログイン（Windows）
 ユーザ：root
+
+PW：Password123
+
+## 3.ターミナルでログイン（Mac）
+> ssh root@localhost
 
 PW：Password123
 
