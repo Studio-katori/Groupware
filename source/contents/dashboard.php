@@ -82,7 +82,7 @@ $total_pages = ceil($total_tweets / $items_per_page);
                     </a>
                     <a href="user.php" class="box">
                         <i class="fa-solid fa-user icon"></i>
-                        <p>パスワード</p>
+                        <p>設定</p>
                     </a>
                     <a href="tweet.php" class="box">
                         <i class="fa-brands fa-twitter icon"></i>
