@@ -64,9 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_icon'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="ja">
-
 <head>
     <?php include '../theme/head.php'; ?>
     <title>プロフィール編集</title>
