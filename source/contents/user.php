@@ -62,6 +62,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_icon'])) {
     // アイコンのアップロード処理
     // ...
 }
+
+// ユーザーのアイコンを表示
+$user_id = $_SESSION['user_id']; // ユーザーIDをセッションから取得
+
+// データベースから保存先パスを取得
+$query = "SELECT user_icon FROM users WHERE id = ?";
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt, $user_icon);
+mysqli_stmt_fetch($stmt);
+mysqli_stmt_close($stmt);
 ?>
 
 <head>
@@ -79,6 +91,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_icon'])) {
                 <div class="wrapper-title">
                     <h3>プロフィール編集</h3>
                 </div>
+                <!-- アイコン表示 -->
+                <?php
+                if ($user_icon) {
+                    $icon_path = "user_icons/" . $user_icon; // アイコンのファイルパス
+                    echo "<img src='$icon_path' alt='User Icon'>";
+                } else {
+                    echo "アイコンが設定されていません。";
+                }
+                ?>                
                 <!-- パスワード変更フォーム -->
                 <div class="contact-form">
                     <h4>パスワード変更</h4>
