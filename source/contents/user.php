@@ -91,15 +91,6 @@ mysqli_stmt_close($stmt);
                 <div class="wrapper-title">
                     <h3>プロフィール編集</h3>
                 </div>
-                <!-- アイコン表示 -->
-                <?php
-                if ($user_icon) {
-                    $icon_path = "user_icons/" . $user_icon; // アイコンのファイルパス
-                    echo "<img src='$icon_path' alt='User Icon' width='30' height='30'>";
-                } else {
-                    echo "アイコンが設定されていません。";
-                }
-                ?>                
                 <!-- パスワード変更フォーム -->
                 <div class="contact-form">
                     <h4>パスワード変更</h4>
@@ -133,6 +124,15 @@ mysqli_stmt_close($stmt);
                 <!-- アイコン変更フォーム -->
                 <div class="contact-form">
                     <h4>アイコン変更</h4>
+                    <!-- アイコン表示 -->
+                    <?php
+                    if ($user_icon) {
+                        $icon_path = "user_icons/" . $user_icon; // アイコンのファイルパス
+                        echo "<img src='$icon_path' alt='User Icon' width='30' height='30'>";
+                    } else {
+                        echo "アイコンが設定されていません。";
+                    }
+                    ?>
                     <form method="post" action="upload.php" id="iconForm" enctype="multipart/form-data">
                         <!-- アイコン変更フォームの内容 -->
                         <input type="file" name="icon" id="icon">
