@@ -133,24 +133,11 @@ mysqli_stmt_close($stmt);
                         echo "アイコンが設定されていません。";
                     }
                     ?>
-                    <table>
-                        <tr>
-                            <th> <?php if ($user_icon) {
-                                        $icon_path = "user_icons/" . $user_icon; // アイコンのファイルパス
-                                        echo "<img src='$icon_path' alt='User Icon' width='30' height='30'>";
-                                    } else {
-                                        echo "アイコンが設定されていません。";
-                                    }
-                                    ?>
-                            </th>
-                            <td>
-                                <form method="post" action="upload.php" id="iconForm" enctype="multipart/form-data">
-                            </td>
-                        </tr>
+                    <form method="post" action="upload.php" id="iconForm" enctype="multipart/form-data">
                         <!-- アイコン変更フォームの内容 -->
                         <input type="file" name="icon" id="icon">
                         <input type="submit" name="change_icon" value="アイコン変更">
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
