@@ -11,7 +11,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     user_role VARCHAR(255) NOT NULL,
     fullname VARCHAR(255) NOT NULL,
-    bio VARCHAR(255) DEFAULT 'NULL',
+    bio TEXT,
     user_icon VARCHAR(255) DEFAULT 'default.png'
 );
 

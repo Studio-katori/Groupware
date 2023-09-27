@@ -49,6 +49,8 @@ RUN composer create-project --prefer-dist laravel/laravel /var/www/html
 RUN cp /var/www/html/.env.example /var/www/html/.env
 RUN php /var/www/html/artisan key:generate
 
+# sourceコピー
+COPY ./source /var/www/html/source
 
 # ディレクトリ権限変更
 RUN chown -R apache:apache /var/www/html
