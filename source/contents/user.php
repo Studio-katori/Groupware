@@ -95,7 +95,7 @@ mysqli_stmt_close($stmt);
                 <?php
                 if ($user_icon) {
                     $icon_path = "user_icons/" . $user_icon; // アイコンのファイルパス
-                    echo "<img src='$icon_path' alt='User Icon' width="30" height="30">";
+                    echo "<img src='$icon_path' alt='User Icon' width='30' height='30'>";
                 } else {
                     echo "アイコンが設定されていません。";
                 }
