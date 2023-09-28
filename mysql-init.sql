@@ -11,7 +11,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     user_role VARCHAR(255) NOT NULL,
     fullname VARCHAR(255) NOT NULL,
-    bio TEXT,
+    bio TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
     user_icon VARCHAR(255) DEFAULT 'default.png'
 );
 

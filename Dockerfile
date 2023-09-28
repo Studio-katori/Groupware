@@ -28,6 +28,12 @@ RUN systemctl enable mariadb
 # データベースとテーブルを作成するSQLスクリプトをコピーします
 COPY ./mysql-init.sql /docker-entrypoint-initdb.d/
 
+# MariaDBサーバー設定ファイルをコピーします
+COPY ./mariadb-server.cnf /etc/my.cnf.d/
+
+# MariaDBクライアント設定ファイルをコピーします
+COPY ./client.cnf /etc/my.cnf.d/
+
 #PHP 8.1
 RUN dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 RUN dnf -y module install php:remi-8.1
