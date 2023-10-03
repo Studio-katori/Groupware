@@ -121,9 +121,11 @@ $total_pages = ceil($total_tweets / $items_per_page);
                                 <tr>
                                     <th></th>
                                     <td>
+                                    <div class="says">
                                         <p>
                                             <?php echo $tweet['content']; ?>
                                         </p>
+                                    </div>
                                     </td>
                                 </tr>
                             </table>
