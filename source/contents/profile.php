@@ -44,28 +44,25 @@ if (!$user_id) {
         $profile_html = "指定されたユーザーは存在しません。";
     } else {
         // ユーザーの情報を表示
-        $profile_html = "<h1>{$user['fullname']} さんのプロフィール</h1>";
+        $profile_fullname = $user['fullname'];
 
         // 自己紹介文を表示
         if ($user['bio']) {
-            $profile_html .= "<p>{$user['bio']}</p>";
+            $profile_bio = $user['bio'];
         } else {
-            $profile_html .= "<p>自己紹介文はまだ設定されていません。</p>";
+            $profile_bio = "<p>自己紹介文はまだ設定されていません。</p>";
         }
 
         // その他のユーザー情報を表示
         // ...
 
-        $profile_html .= "<a href='dashboard.php'>ダッシュボードに戻る</a>";
+        $profile_html = "<a href='dashboard.php'>ダッシュボードに戻る</a>";
     }
 
     mysqli_free_result($result);
     mysqli_stmt_close($stmt);
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="ja">
 
 <head>
     <?php include '../theme/head.php'; ?>
@@ -75,12 +72,21 @@ if (!$user_id) {
 <body>
     <!-- ヘッダーをインクルード -->
     <?php include '../theme/header.php'; ?>
+
+    <main>
     <div class="wrapper">
         <div class="container">
             <div class="wrapper-title">
-                <h3></h3>
+                <h3><?php echo $profile_fullname; ?>さん</h3>
             </div>
-            <?php echo $user_icon_html; ?>
+            <div class="contact-form">
+                <h4>アイコン</h4>
+                <?php echo $user_icon_html; ?>
+            </div>
+            <div class="contact-form">
+                <h4>自己紹介文</h4>
+                <?php echo $profile_bio; ?>
+            </div>
             <?php echo $profile_html; ?>
         </div>
     </div>
