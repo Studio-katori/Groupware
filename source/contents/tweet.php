@@ -164,8 +164,10 @@ if (isset($_POST['reply'])) {
                                         echo '<p>';
                                         echo '<img src="' . "user_icons/{$reply['user_icon']}" . '" alt="User Icon" width="25" height="25">';
                                         echo $reply['fullname'] . ' - ' . $reply['created_at'] . '<br>';
+                                        echo '<div class="says">';
                                         echo $reply['content'];
                                         echo '</p>';
+                                        echo '</div>';
                                         echo '</td>';
                                         echo '</tr>';
                                     }
