@@ -4,6 +4,8 @@ LABEL maintainer=groupware
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]"
 
+ENV HOSTNAME groupware
+
 # 累積アップデートの実行
 RUN dnf -y upgrade
 
