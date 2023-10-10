@@ -334,7 +334,7 @@ footer {
   .says {
     display: inline-block;
     position: relative; 
-    margin: 0 0 0 50px;
+    margin: 0 0 0 0px;
     padding: 10px;
     max-width: 250px;
     border-radius: 12px;
@@ -369,7 +369,7 @@ footer {
     max-width: 250px;
     border-radius: 12px;
     background: #30e852;
-    font-size: 15px:
+    font-size: 15px
   }
   
   .mycomment p:after {
