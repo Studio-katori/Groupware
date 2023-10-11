@@ -144,6 +144,8 @@ if ($result) {
     $message = "エラー：ドメイン一覧の取得に失敗しました。";
 }
 ?>
+<!DOCTYPE html>
+<html>
 
 <head>
     <?php include '../theme/head.php'; ?>

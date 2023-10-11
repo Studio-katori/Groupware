@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+
 <head>
     <?php include '../theme/head.php'; ?>
     <title>access_denied</title>
