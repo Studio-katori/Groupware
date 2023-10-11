@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 
 <head>
     <?php include '../theme/head.php'; ?>

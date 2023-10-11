@@ -75,8 +75,6 @@ mysqli_stmt_bind_result($stmt, $user_icon);
 mysqli_stmt_fetch($stmt);
 mysqli_stmt_close($stmt);
 ?>
-<!DOCTYPE html>
-<html>
 
 <head>
     <?php include '../theme/head.php'; ?>

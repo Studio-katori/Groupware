@@ -83,9 +83,6 @@ if (isset($_POST['reply'])) {
 
 ?>
 
-<!DOCTYPE html>
-<html>
-
 <head>
     <?php include '../theme/head.php'; ?>
     <title>投稿システム</title>

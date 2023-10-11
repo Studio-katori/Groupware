@@ -63,8 +63,6 @@ if (!$user_id) {
     mysqli_stmt_close($stmt);
 }
 ?>
-<!DOCTYPE html>
-<html>
 
 <head>
     <?php include '../theme/head.php'; ?>

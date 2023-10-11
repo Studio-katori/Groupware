@@ -51,9 +51,6 @@ mysqli_free_result($result);
 $total_pages = ceil($total_tweets / $items_per_page);
 ?>
 
-<!DOCTYPE html>
-<html>
-
 <head>
     <?php include '../theme/head.php'; ?>
     <title>ダッシュボード</title>
