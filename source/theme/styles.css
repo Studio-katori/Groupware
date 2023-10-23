@@ -227,14 +227,15 @@ footer {
      background: #BCBCBC;
     }
 
-
-
-
     .contact-form{
 		width:60%;
 		margin:20 auto;
 	}
-
+    .contact-form img {
+        display: block;
+        margin: auto;
+    }
+    
     .contact-form h4{
         background: linear-gradient(transparent 70%, #a7d6ff 70%);
     }
@@ -270,9 +271,6 @@ footer {
 		display:inline;
         text-align: center;
         margin: 0 5px;
-    }
-    .contact-form img{
-        text-align: center;
     }
     
     .tweet{
