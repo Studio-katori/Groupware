@@ -270,8 +270,11 @@ footer {
 		display:inline;
         text-align: center;
         margin: 0 5px;
-
-	}
+    }
+    .contact-form img{
+        margin-left: auto;
+        margin-right: auto;
+    }
     
     .tweet{
         margin:1%;
