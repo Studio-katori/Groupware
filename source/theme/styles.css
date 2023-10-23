@@ -234,6 +234,10 @@ footer {
     .contact-form img {
         display: block;
         margin: auto;
+        background-color: black;
+        width: 200px;
+        height: 200px;
+        margin-right: 50px;
     }
     
     .contact-form h4{
