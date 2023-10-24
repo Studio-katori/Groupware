@@ -80,11 +80,11 @@ if (!$user_id) {
                 <h3><?php echo $profile_fullname; ?>さん</h3>
             </div>
             <div class="contact-form">
-                <h4>アイコン</h4>
+                <h3>アイコン</h3>
                 <?php echo $user_icon_html; ?>
             </div>
             <div class="contact-form">
-                <h4>自己紹介文</h4>
+                <h3>自己紹介文</h3>
                 <?php echo $profile_bio; ?>
             </div>
             <?php echo $profile_html; ?>
