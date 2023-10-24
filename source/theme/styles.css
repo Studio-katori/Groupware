@@ -248,7 +248,7 @@ footer {
         margin: auto;
       }
 
-    .tweets{
+    .tweet{
         display: block;
         margin: auto;
         width: 35px;
@@ -258,7 +258,7 @@ footer {
         position: relative;
     }
       
-    .tweets img{
+    .tweet img{
         width: 100%;
         height: auto;
         position: absolute;
