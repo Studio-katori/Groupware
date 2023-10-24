@@ -157,7 +157,7 @@ if (isset($_POST['reply'])) {
                                         echo '<th></th>';
                                         echo '<td>';
                                         echo '<p>';
-                                        echo '<figure class="icon-circle-tweets"><img src="' . "user_icons/{$reply['user_icon']}" . '" alt="User Icon" width="25" height="25"></figure>';
+                                        echo '<img src="' . "user_icons/{$reply['user_icon']}" . '" alt="User Icon" width="25" height="25">';
                                         echo $reply['fullname'] . ' - ' . $reply['created_at'] . '<br>';
                                         echo '<div class="says">';
                                         echo $reply['content'];

@@ -248,7 +248,7 @@ footer {
         margin: auto;
       }
 
-    .icon-circle-tweets{
+    .tweets{
         display: block;
         margin: auto;
         width: 35px;
@@ -258,7 +258,7 @@ footer {
         position: relative;
     }
       
-    .icon-circle-tweets img{
+    .tweets img{
         width: 100%;
         height: auto;
         position: absolute;
