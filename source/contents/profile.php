@@ -19,7 +19,7 @@ mysqli_stmt_close($stmt);
 
 if ($user_icon) {
     $icon_path = "user_icons/" . $user_icon; // アイコンのファイルパス
-    $user_icon_html = "<figure class='icon-circle'><img src='$icon_path' alt='User Icon'></figure>";
+    $user_icon_html = "<figure class='icon-circle-profile'><img src='$icon_path' alt='User Icon'></figure>";
 } else {
     $user_icon_html = "アイコンが設定されていません。";
 }

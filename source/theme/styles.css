@@ -227,7 +227,7 @@ footer {
      background: #BCBCBC;
     }
 
-    .icon-circle{
+    .icon-circle-profile{
         display: block;
         margin: auto;
         width: 200px;
@@ -237,7 +237,7 @@ footer {
         position: relative;
       }
       
-      .icon-circle img{
+      .icon-circle-profile img{
         width: 100%;
         height: auto;
         position: absolute;
