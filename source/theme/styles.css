@@ -248,6 +248,27 @@ footer {
         margin: auto;
       }
 
+    .icon-circle-tweets{
+        display: block;
+        margin: auto;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+    }
+      
+    .icon-circle-tweets img{
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+      }
+
     .contact-form{
 		width:60%;
 		margin:20 auto;

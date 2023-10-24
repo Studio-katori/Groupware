@@ -103,8 +103,7 @@ if (isset($_POST['reply'])) {
                 <div class="user-icon">
                     <table>
                         <tr>
-                            <th><img src="<?php echo "user_icons/{$user_icon}"; ?>" alt="User Icon" width="30"
-                                    height="30"></th>
+                            <th><figure class='icon-circle-teewts'><img src="<?php echo "user_icons/{$user_icon}"; ?>" alt="User Icon"></figure></th>
                             <td>
                                 <?php echo $fullname; ?>
                             </td>
@@ -124,8 +123,7 @@ if (isset($_POST['reply'])) {
                         <div class="tweet">
                             <table>
                                 <tr>
-                                    <th><a href="profile.php?user_id=<?php echo $tweet['user_id']; ?>"><img src="<?php echo "user_icons/{$tweet['user_icon']}"; ?>" alt="User Icon"
-                                            width="30" height="30"></a></th>
+                                    <th><a href="profile.php?user_id=<?php echo $tweet['user_id']; ?>"><figure class='icon-circle-teewts'><img src="<?php echo "user_icons/{$user_icon}"; ?>" alt="User Icon"></figure></th>
                                     <td>
                                         <p class="tweet-info">
                                             <?php echo $tweet['fullname']; ?> -
@@ -159,7 +157,7 @@ if (isset($_POST['reply'])) {
                                         echo '<th></th>';
                                         echo '<td>';
                                         echo '<p>';
-                                        echo '<img src="' . "user_icons/{$reply['user_icon']}" . '" alt="User Icon" width="25" height="25">';
+                                        echo '<figure class="icon-circle-teewts"><img src="' . "user_icons/{$reply['user_icon']}" . '" alt="User Icon" width="25" height="25"></figure>';
                                         echo $reply['fullname'] . ' - ' . $reply['created_at'] . '<br>';
                                         echo '<div class="says">';
                                         echo $reply['content'];
