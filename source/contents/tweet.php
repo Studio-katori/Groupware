@@ -79,6 +79,7 @@ if (isset($_POST['reply'])) {
     } else {
         die("Error: " . mysqli_error($conn)); // エラーメッセージを表示
     }
+}
 
 // ツイート削除の処理
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_tweet'])) {
@@ -99,8 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_tweet'])) {
         die("Error: " . mysqli_error($conn));
     }
 }
-}
-
 ?>
 
 <head>
