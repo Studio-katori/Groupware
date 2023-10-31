@@ -1,10 +1,13 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 require_once '../config/config.php';
 
 // ログインしていない場合はログインページにリダイレクト
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../config/login.php");
+    header("Location: ../login.php");
     exit;
 }
 
