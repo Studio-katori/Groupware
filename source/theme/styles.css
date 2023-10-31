@@ -251,8 +251,8 @@ footer {
     .icon-circle-tweets{
         display: block;
         margin: auto;
-        width: 100px;
-        height: 100px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         overflow: hidden;
         position: relative;
