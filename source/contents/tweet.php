@@ -81,25 +81,6 @@ if (isset($_POST['reply'])) {
     }
 }
 
-// ツイート削除の処理
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_tweet'])) {
-    $tweet_id_to_delete = $_POST['tweet_id_to_delete'];
-
-    // ツイートの削除クエリを実行
-    $delete_query = "DELETE FROM tweets WHERE id = ?";
-    $delete_stmt = mysqli_prepare($conn, $delete_query);
-    mysqli_stmt_bind_param($delete_stmt, "i", $tweet_id_to_delete);
-    
-    if (mysqli_stmt_execute($delete_stmt)) {
-        mysqli_stmt_close($delete_stmt);
-        
-        // ツイート削除後の適切な処理を行う
-        header("Location: tweet.php");
-        exit;
-    } else {
-        die("Error: " . mysqli_error($conn));
-    }
-}
 ?>
 
 <head>
@@ -164,12 +145,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_tweet'])) {
                                                 placeholder="返信を入力"></textarea>
                                             <br>
                                             <input type="submit" name="reply" value="返信">
-                                        </form>
-                                        
-                                        <!-- ツイート削除ボタン -->
-                                        <form method="post" action="">
-                                            <input type="hidden" name="tweet_id_to_delete" value="<?php echo $tweet['id']; ?>">
-                                            <input type="submit" name="delete_tweet" value="削除">
                                         </form>
                                     </td>
                                 </tr>
