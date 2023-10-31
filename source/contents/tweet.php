@@ -123,7 +123,7 @@ if (isset($_POST['reply'])) {
                         <div class="tweet">
                             <table>
                                 <tr>
-                                    <th><a href="profile.php?user_id=<?php echo $tweet['user_id']; ?>"><figure class='icon-circle-tweets'><img src="<?php echo "user_icons/{$user_icon}"; ?>" alt="User Icon"></figure></th>
+                                    <th><figure class='icon-circle-tweets'><a href="profile.php?user_id=<?php echo $tweet['user_id']; ?>"><img src="<?php echo "user_icons/{$user_icon}"; ?>" alt="User Icon"></figure></th>
                                     <td>
                                         <p class="tweet-info">
                                             <?php echo $tweet['fullname']; ?> -
