@@ -105,9 +105,9 @@ $total_pages = ceil($total_tweets / $items_per_page);
                             <table>
                                 <tr>
                                     <!-- プロフィールへのリンクを追加 -->
-                                    <th><a href="profile.php?user_id=<?php echo $tweet['user_id']; ?>"><img
+                                    <th><figure class='icon-circle-tweets'><a href="profile.php?user_id=<?php echo $tweet['user_id']; ?>"><img
                                                 src="<?php echo "user_icons/{$tweet['user_icon']}"; ?>" alt="User Icon"
-                                                width="30" height="30"></a></th>
+                                                width="30" height="30"></a></figure></th>
                                     <td>
                                         <p class="tweet-info">
                                             <?php echo $tweet['fullname']; ?> -
