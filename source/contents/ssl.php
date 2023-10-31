@@ -78,7 +78,7 @@ if ($result) {
 
 <head>
     <?php include '../theme/head.php'; ?>
-    <title>SSL設定</title>
+    <title>ドメインSSL設定</title>
 </head>
 
 <body>
@@ -88,7 +88,7 @@ if ($result) {
         <div class="wrapper">
             <div class="container">
                 <div class="wrapper-title">
-                    <h3>SSL設定</h3>
+                    <h3>ドメインSSL設定</h3>
                 </div>
                 <div class="contact-form">
                     <p style="color: red;">
