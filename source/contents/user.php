@@ -69,7 +69,21 @@ mysqli_stmt_close($stmt_user);
                     <h4>パスワード変更</h4>
                     <form method="post" action="" id="passwordForm">
                         <!-- パスワード変更フォームの内容 -->
-                        <!-- ... -->
+                        <table>
+                            <tr>
+                                <th>現在のパスワード</th>
+                                <td><input type="password" id="current_password" name="current_password" required></td>
+                            </tr>
+                            <tr>
+                                <th>新しいパスワード</th>
+                                <td><input type="password" id="new_password" name="new_password" required></td>
+                            </tr>
+                            <tr>
+                                <th>確認用パスワード</th>
+                                <td><input type="password" id="confirm_password" name="confirm_password" required></td>
+                            </tr>
+                        </table>
+                        <input type="submit" name="change_password" value="パスワード変更">
                     </form>
                 </div>
                 <!-- 自己紹介文変更フォーム -->
