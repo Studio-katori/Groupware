@@ -1,29 +1,28 @@
-# almalinuxのイメージを利用する
-FROM almalinux/almalinux
+FROM almalinux:8
 LABEL maintainer=groupware
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]"
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ENV HOSTNAME groupware
+ENV HOSTNAME=groupware
 
 # 累積アップデートの実行
-RUN dnf -y upgrade
+RUN dnf clean all && dnf makecache && dnf -y upgrade
 
 # ベース、開発ツールパッケージ群インストール
 RUN dnf -y groupinstall base "Development tools"
 
-#ROOTパスワード
+# ROOTパスワード
 RUN echo "root:Password123" | chpasswd;
 
-#sshのインストール
+# sshのインストール
 RUN dnf install -y openssh-server
 RUN systemctl enable sshd
 
-#Apacheのインストール
+# Apacheのインストール
 RUN dnf install -y httpd
 RUN systemctl enable httpd
 
-#MariaDBのインストール
+# MariaDBのインストール
 RUN dnf install -y mariadb-server mariadb
 RUN systemctl enable mariadb
 
@@ -36,7 +35,7 @@ COPY ./mariadb-server.cnf /etc/my.cnf.d/
 # MariaDBクライアント設定ファイルをコピーします
 COPY ./client.cnf /etc/my.cnf.d/
 
-#PHP 8.1
+# PHP 8.1
 RUN dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 RUN dnf -y module install php:remi-8.1
 RUN dnf -y install php php-cli php-fpm php-devel php-pear php-curl php-mysqlnd php-gd php-opcache php-zip php-intl php-common php-bcmath php-imagick php-xmlrpc php-json php-readline php-memcached php-redis php-mbstring php-apcu php-xml php-dom php-redis php-memcached php-memcache php-process
@@ -62,4 +61,3 @@ COPY ./source /var/www/html/source
 
 # ディレクトリ権限変更
 RUN chown -R apache:apache /var/www/html
-
