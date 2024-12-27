@@ -77,6 +77,10 @@ $total_pages = ceil($total_tweets / $items_per_page);
                         <i class="fa-brands fa-expeditedssl icon"></i>
                         <p>SSL</p>
                     </a>
+                    <a href="wordpress.php" class="box">
+                        <i class="fa-brands fa-wordpress icon"></i>
+                        <p>WordPress</p>
+                    </a>
                     <a href="user.php" class="box">
                         <i class="fa-solid fa-user icon"></i>
                         <p>設定</p>

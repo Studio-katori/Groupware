@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="login-wrapper" id="login">
+    <h1>WebStudio</h1>
         <div class="container">
             <div class="login">
                 <div class="login-wrapper-title">
